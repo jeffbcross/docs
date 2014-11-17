@@ -4,43 +4,41 @@
       <div class="span3">
         <h3>Guides</h3>
         <ul class="nav nav-list">
-          <% rootChildren.forEach(function (c) { %>
-            <li><a href="<%= c.url() %>"><%= c.title() %></a></li>
-          <% }) %>
+          <li ng-repeat="guide in navCtrl.nav.guidesNav">
+            <a ng-href="{{ guide.url }}">{{ guide.title }}</a>
+          </li>
         </ul>
       </div>
       <div class="span3">
         <h3>APIs</h3>
         <ul class="nav nav-list">
-          <% app.index.root().subReferences().forEach(function (c) { %>
-            <li class="nav-header"><a href="<%= c.url() %>"><%= c.parent().title() %></a></li>
-            <% c.children().forEach(function (cc) { %>
-              <li><a href="<%= cc.url() %>"><%= cc.title() %></a></li>
-            <% }) %>
-          <% }) %>
+          <li class="nav-header" ng-repeat-start="api in navCtrl.nav.apis">
+            <a ng-href="{{ api.url }}">{{ api.title }}</a>
+          </li>
+          <li ng-repeat="child in api.children" ng-repeat-end="api in navCtrl.nav.apis">
+            <a ng-href="{{ child.url }}">{{ child.title }}</a>
+          </li>
         </ul>
       </div>
       <div class="span3">
         <h3>Examples</h3>
         <ul class="nav nav-list">
-          <% rootChildren.forEach(function (c) {
-            var examples = c.examples();
-            if(!examples || !examples.length) return; %>
-            <li class="nav-header"><a href="<%= c.url() %>"><%= c.title() %></a></li>
-            <% examples.forEach(function (ex) { %>
-              <li><a href="<%= c.parent().url() %>"><%= ex.title() %></a></li>
-            <% }) %>
-          <% }) %>
+          <li class="nav-header" ng-repeat-start="example in navCtrl.nav.examples">
+            <a ng-href="{{ example.url }}">{{ example.title }}</a>
+          </li>
+          <li ng-repeat="child in example.children" ng-repeat-end="example in navCtrl.nav.examples">
+            <a ng-href="{{ child.url }}">{{ child.title }}</a>
+          </li>
         </ul>
       </div>
       <div class="span3">
         <div id="feedback">
           <h3>Feedback</h3>
-          <p>Let us know if you have any ideas to improve our docs. Open an <a href="https://github.com/deployd/docs/issues">issue on github</a>, <a href="mailto: hello@deployd.com">send us an email</a>, or <a href="https://twitter.com/deploydapp">tweet us</a>.</p>
+          <p>Let us know if you have any ideas to improve our docs. Open an <a ng-href="https://github.com/deployd/docs/issues">issue on github</a>, <a ng-href="mailto: hello@deployd.com">send us an email</a>, or <a ng-href="https://twitter.com/deploydapp">tweet us</a>.</p>
         </div>
         <div id="download">
           <h3>Edit or Download these Docs</h3>
-          <p>This entire site, including documentation written in markdown is <a href="https://github.com/deployd/docs">available on github</a>. Pull requests are appreciated!</p>
+          <p>This entire site, including documentation written in markdown is <a ng-href="https://github.com/deployd/docs">available on github</a>. Pull requests are appreciated!</p>
         </div>
       </div>
     </div>
